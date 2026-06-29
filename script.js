@@ -1,10 +1,15 @@
+
 const config = {
     type: Phaser.AUTO,
     width: 400,
     height: 600,
     pixelArt: true,
     physics: { default: 'arcade', arcade: { debug: false } },
-    scene: { preload: preload, create: create, update: update }
+    scene: { preload: preload, create: create, update: update
+           let lane = 1;
+const lanes = [100, 200, 300];
+           }
+    
 };
 
 const game = new Phaser.Game(config);
@@ -76,13 +81,13 @@ function create() {
         if (estado.placar[estado.personagem] >= 500) vitoria(this);
     });
 
-    this.input.on('pointermove', (p) => { 
-        if(p.isDown && gameStarted) {
-            let posX = Phaser.Math.Clamp(p.x, 60, 340);
-            player.x = posX;
-            moldura.x = posX;
-        }
-    });
+    this.input.on('pointermove', (p) => {
+    if(p.isDown && gameStarted) {
+        let posX = Phaser.Math.Clamp(p.x, 60, 340);
+        player.x = posX;
+        moldura.x = posX;
+    }
+});
 
     this.time.addEvent({
         delay: 800, callback: () => {
