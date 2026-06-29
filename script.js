@@ -97,7 +97,7 @@ function create() {
             let tipos = (estado.personagem === 'thor') ? itensThor : itensGeral;
             let key = tipos[Phaser.Math.Between(0, tipos.length - 1)];
             let isGold = Phaser.Math.Between(1, 10) === 1;
-            let item = items.create(Phaser.Math.Between(50, 350), -50, key);
+            let item = items.create(lanes[Phaser.Math.Between(0, 2)], -50, key);
             item.setDisplaySize(80, 80).setVelocityY(dificuldade);
             if (isGold) item.setTint(0xFFD700);
         }, loop: true
