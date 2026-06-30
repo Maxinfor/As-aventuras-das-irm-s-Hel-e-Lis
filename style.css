@@ -1,70 +1,25 @@
-﻿/* Configuração Geral */
-body { 
-    font-family: sans-serif; 
-    text-align: center; 
-    background: #fce4ec; 
-    margin: 0; 
-    padding: 20px; 
+body{
+
+    margin:0;
+
+    padding:0;
+
+    background:#222;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
 }
 
-/* Ajustes da Capa */
-#tela-capa { 
-    background: white; 
-    padding: 40px; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-}
+canvas{
 
-#tela-capa img { 
-    width: 250px; 
-    height: 250px; 
-    object-fit: cover; 
-    border-radius: 20px; 
-    border: 5px solid #ffca28; 
-}
+    border:4px solid white;
 
-/* Animação de Flutuar */
-@keyframes flutuar {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
+    border-radius:15px;
 
-/* Estilo dos Personagens */
-#personagens { 
-    display: flex; 
-    justify-content: center; 
-    gap: 20px; 
-    margin-bottom: 20px;
-}
-
-#personagens img { 
-    width: 100px; 
-    height: 100px; 
-    object-fit: cover; 
-    border-radius: 50%; 
-    border: 3px solid #6a1b9a; 
-}
-
-#helo-img, #liz-img { 
-    animation: flutuar 3s ease-in-out infinite; 
-}
-
-/* Estilo do Jogo (Phaser Canvas) */
-canvas { 
-    border: 2px solid #6a1b9a; 
-    border-radius: 10px; 
-    margin-top: 20px;
-}
-
-/* Botões */
-button { 
-    padding: 15px 30px; 
-    background: #6a1b9a; 
-    color: white; 
-    border: none; 
-    border-radius: 10px; 
-    cursor: pointer; 
-    font-size: 16px;
-    margin-top: 20px;
 }
