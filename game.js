@@ -1,193 +1,177 @@
-//====================================================
+//==========================================
 // AS AVENTURAS DE HELÔ, LIS E THOR
-// Runner estilo Subway Surfers
-//====================================================
+// Runner inspirado em Subway Surfers
+//==========================================
 
-//====================
-// CONFIGURAÇÃO
-//====================
+// ---------- CONFIGURAÇÃO ----------
 
 const config = {
     type: Phaser.AUTO,
+
     width: 400,
     height: 600,
-    pixelArt: true,
+
+    parent: "game",
 
     physics: {
-        default: 'arcade',
+        default: "arcade",
+
         arcade: {
             debug: false
         }
     },
 
     scene: {
-        preload,
-        create,
-        update
+        preload: preload,
+        create: create,
+        update: update
     }
 };
 
 const game = new Phaser.Game(config);
 
-//====================
-// VARIÁVEIS GLOBAIS
-//====================
+// ---------- PISTAS ----------
 
-const lanes = [100, 200, 300];
+const pistas = [100, 200, 300];
 
-let lane = 1;
+let pistaAtual = 1;
+
+// ---------- GAME ----------
 
 let player;
-let moldura;
-
-let items;
-
-let scoreText;
-let livesText;
-let moedasText;
 
 let fundo1;
 let fundo2;
 
+let itens;
+
+let scoreText;
+let vidasText;
+let moedasText;
+
 let musica;
 let latido;
 
-let vidas = 3;
+let score = 0;
 let moedas = 0;
+let vidas = 3;
 
-let gameStarted = false;
-let pulando = false;
-
+let velocidade = 350;
 let velocidadeFundo = 8;
-let dificuldade = 320;
 
-let startX = 0;
-let startY = 0;
+let jogoIniciado = false;
 
-let estado = {
+let personagem = "helo";
 
-    personagem: "helo",
-
-    placar: {
-        helo: 0,
-        lis: 0,
-        thor: 0
-    }
-
-};
-
-//====================
+//==========================================
 // PRELOAD
-//====================
+//==========================================
 
 function preload() {
 
-    // CAPA
-
-    this.load.image(
-        "capa",
-        "capa.jpg"
-    );
-
-    // FUNDOS
+    //--------------------
+    // Fundos
+    //--------------------
 
     this.load.image(
         "fundoMeninas",
-        "quarto.jpg"
+        "imagens/quarto.jpg"
     );
 
     this.load.image(
         "fundoThor",
-        "casa.jpg"
+        "imagens/casa.jpg"
     );
 
-    // PERSONAGENS
+    this.load.image(
+        "capa",
+        "imagens/capa.jpg"
+    );
+
+    //--------------------
+    // Personagens
+    //--------------------
 
     this.load.image(
         "helo",
-        "helo.png"
+        "imagens/helo.png"
     );
 
     this.load.image(
         "lis",
-        "lis.png"
+        "imagens/lis.png"
     );
 
     this.load.image(
         "thor",
-        "thor.png"
+        "imagens/thor.png"
     );
 
-    // ITENS
-
-    this.load.image("agua","agua.png");
-    this.load.image("carne","carne.png");
-    this.load.image("osso","osso.png");
-
-    this.load.image("secador","secador.png");
-    this.load.image("escova","escova.png");
-    this.load.image("oculos","oculos.png");
-
-    this.load.image("tenis1","tenis1.png");
-    this.load.image("tenis2","tenis2.png");
-
-    this.load.image("agenda","agenda.png");
-    this.load.image("amigos","amigos.png");
-
-    this.load.image("caderno","caderno.png");
-    this.load.image("estojo","estojo.png");
-
-    this.load.image("garrafa","garrafa.png");
-    this.load.image("kit","kit.png");
-
-    this.load.image("lapis","lapis.png");
-    this.load.image("livro","livro.png");
-
-    this.load.image("lanche","lanche.png");
-
-    this.load.image("mochila1","mochila1.png");
-    this.load.image("mochila2","mochila2.png");
-    this.load.image("mochila3","mochila3.png");
-
-    // MOEDA
-
-    this.load.image(
-        "moeda",
-        "moeda.png"
-    );
-
-    // OBSTÁCULOS
+    //--------------------
+    // Obstáculos
+    //--------------------
 
     this.load.image(
         "urso",
-        "urso.png"
+        "imagens/urso.png"
     );
 
     this.load.image(
         "leao",
-        "leao.png"
+        "imagens/leao.png"
     );
 
     this.load.image(
         "onca",
-        "onca.png"
+        "imagens/onca.png"
     );
 
-    // ÁUDIO
+    //--------------------
+    // Itens
+    //--------------------
+
+    this.load.image(
+        "moeda",
+        "imagens/moeda.png"
+    );
+
+    this.load.image(
+        "livro",
+        "imagens/livro.png"
+    );
+
+    this.load.image(
+        "agenda",
+        "imagens/agenda.png"
+    );
+
+    this.load.image(
+        "garrafa",
+        "imagens/garrafa.png"
+    );
+
+    this.load.image(
+        "lanche",
+        "imagens/lanche.png"
+    );
+
+    //--------------------
+    // Sons
+    //--------------------
 
     this.load.audio(
         "trilha",
-        "musica.mp3"
+        "sons/musica.mp3"
     );
 
     this.load.audio(
         "latido",
-        "latido.mp3"
+        "sons/latido.mp3"
     );
 
     this.load.audio(
         "fogos",
-        "Fogo.mp3"
+        "sons/Fogo.mp3"
     );
 
 }
