@@ -175,3 +175,245 @@ function preload() {
     );
 
 }
+//==========================================
+// CREATE
+//==========================================
+
+function create() {
+
+    //--------------------------------------
+    // FUNDO INFINITO
+    //--------------------------------------
+
+    fundo1 = this.add.image(
+        200,
+        300,
+        "fundoMeninas"
+    ).setDisplaySize(400,600);
+
+    fundo2 = this.add.image(
+        200,
+        -300,
+        "fundoMeninas"
+    ).setDisplaySize(400,600);
+
+    //--------------------------------------
+    // SOM
+    //--------------------------------------
+
+    musica = this.sound.add("trilha",{
+        loop:true,
+        volume:0.4
+    });
+
+    latido = this.sound.add("latido",{
+        volume:0.6
+    });
+
+    //--------------------------------------
+    // GRUPO DOS ITENS
+    //--------------------------------------
+
+    itens = this.physics.add.group();
+
+    //--------------------------------------
+    // PERSONAGEM
+    //--------------------------------------
+
+    player = this.physics.add.sprite(
+
+        pistas[pistaAtual],
+        470,
+        personagem
+
+    );
+
+    player.setDisplaySize(90,110);
+
+    player.setCollideWorldBounds(true);
+
+    //--------------------------------------
+    // HUD
+    //--------------------------------------
+
+    scoreText = this.add.text(
+
+        15,
+        15,
+
+        "SCORE: 0",
+
+        {
+
+            fontSize:"22px",
+
+            color:"#ffffff",
+
+            fontStyle:"bold"
+
+        }
+
+    );
+
+    moedasText = this.add.text(
+
+        15,
+        45,
+
+        "MOEDAS: 0",
+
+        {
+
+            fontSize:"18px",
+
+            color:"#FFD700"
+
+        }
+
+    );
+
+    vidasText = this.add.text(
+
+        385,
+        15,
+
+        "❤️❤️❤️",
+
+        {
+
+            fontSize:"22px",
+
+            color:"#ff0000"
+
+        }
+
+    ).setOrigin(1,0);
+
+    //--------------------------------------
+    // COLISÃO
+    //--------------------------------------
+
+    this.physics.add.overlap(
+
+        player,
+
+        itens,
+
+        pegarItem,
+
+        null,
+
+        this
+
+    );
+
+    //--------------------------------------
+    // CONTROLE TECLADO
+    //--------------------------------------
+
+    this.cursors =
+        this.input.keyboard.createCursorKeys();
+
+    //--------------------------------------
+    // CONTROLE POR TOQUE
+    //--------------------------------------
+
+    this.input.on("pointerdown",(pointer)=>{
+
+        this.inicioX = pointer.x;
+
+        this.inicioY = pointer.y;
+
+    });
+
+    this.input.on("pointerup",(pointer)=>{
+
+        let dx = pointer.x - this.inicioX;
+
+        let dy = pointer.y - this.inicioY;
+
+        //--------------------------------------------------
+
+        if(Math.abs(dx) > Math.abs(dy)){
+
+            if(dx > 50){
+
+                moverDireita();
+
+            }
+
+            if(dx < -50){
+
+                moverEsquerda();
+
+            }
+
+        }
+
+        //--------------------------------------------------
+
+        else{
+
+            if(dy < -50){
+
+                pular(player,this);
+
+            }
+
+        }
+
+    });
+
+    //--------------------------------------
+    // BOTÕES
+    //--------------------------------------
+
+    criarBotao(
+
+        this,
+
+        80,
+
+        565,
+
+        "Helô",
+
+        "helo"
+
+    );
+
+    criarBotao(
+
+        this,
+
+        200,
+
+        565,
+
+        "Lis",
+
+        "lis"
+
+    );
+
+    criarBotao(
+
+        this,
+
+        320,
+
+        565,
+
+        "Thor",
+
+        "thor"
+
+    );
+
+    //--------------------------------------
+    // CAPA
+    //--------------------------------------
+
+    criarTelaInicial(this);
+
+}
